@@ -1,14 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import seleniumDriver as WNBA
 
-# WNBA Teams URL
-all_teams_url = 'https://stats.wnba.com/teams/'
-# fetch the raw HTML
-teams_page = requests.get(all_teams_url)
+if __name__ == "main":
+    WNBAdriver = WNBA.BasketballDriver()
+    WNBAdriver.print_teams()
 
-soup = BeautifulSoup(teams_page.content)
 
-# search for team links
-team_links = soup.find_all("a", "stats-team-list__link")
 
-print(team_links)
