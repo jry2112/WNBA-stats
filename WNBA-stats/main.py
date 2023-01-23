@@ -1,7 +1,9 @@
 import requests
+from pymongo import MongoClient
 from bs4 import BeautifulSoup
 import seleniumDriver as sel
 import league as WNBA
+
 
 def make_team(team_name, team_URL, conference):
     new_team = WNBA.Team(team_name)
