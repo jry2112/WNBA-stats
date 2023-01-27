@@ -8,20 +8,21 @@ class BasketballDriver:
         self.service = Service(executable_path="/usr/bin/chromedriver")
         self.driver = webdriver.Chrome(service=self.service)
         self.all_teams_url = 'https://stats.wnba.com/teams/'
-        self.teams_urls = self.find_teams()
+        self.teams_urls = self.find_teams_urls()
 
     # Driver for scraping
     def get_driver(self):
         return self.driver
 
-    # Get All Team Names and URLs
-    def find_teams(self):
+    # Get All Team Names and URLs from WNBA site
+    def find_teams_urls(self):
         driver = self.get_driver()
         teams = {}
         driver.get(self.all_teams_url)
         driver.implicitly_wait(1)
         team_elements = driver.find_elements(By.CLASS_NAME, "stats-team-list__link")
         for team in team_elements:
+            # teams = {"Team Name" : "Team URL"}
             teams[team.text] = team.get_attribute("href")
         return teams
     

@@ -1,9 +1,11 @@
+import json
+
 class League:
     # Leaugue consists of 11 teams split between Eastern and Western Conference
     def __init__(self):
         self.teams = []
-        self.eastern_conf = []
-        self.western_conf = []
+        self.eastern_conf = ["Atlanta Dream", "Chicago Sky", "Connecticut Sun", "Indiana Fever", "New York Liberty", "Washington Mystics"]
+        self.western_conf = ["Dallas Wings", "Las Vegas Aces", "Los Angeles Sparks", "Minnesota Lynx", "Phoenix Mercury", "Seattle Storm"]
 
     # Add a Team to the League
     def add_team(self, team):
@@ -21,15 +23,27 @@ class League:
     def get_western_conf(self):
         return self.eastern_conf
 
+    # Get a Teams League
+    def get_teams_league(self, team_name):
+        if team_name in self.eastern_conf:
+            return "Eastern"
+        return "Western"
+
     # Print all Team Names    
     def print_teams(self):
         for team in self.teams:
             print(team.name)
+
+    # Source: https://stackoverflow.com/a/15538391
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=False, indent=4)
             
 
 
 
 class Player:
+    # Players are initialized with their team, first_name, and last_name
     def __init__(self, team, first_name, last_name):
         self.url = None
         self.team = team
@@ -56,7 +70,15 @@ class Player:
         return name
 
     # Update a player's stats
-    def 
+    def update_stats(self):
+        return self.stats
+
+    def get_stats(self):
+        return self.stats
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=False, indent=4)
 
 class Team:
     def __init__(self, name):
@@ -95,3 +117,7 @@ class Team:
             if player.first_name == first_name and player.last_name == last_name:
                 return player
         return None
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=False, indent=4)
