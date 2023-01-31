@@ -1,4 +1,4 @@
-import requests
+import requests, sys
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
 import seleniumDriver as sel
@@ -12,7 +12,7 @@ def make_team(team_name, team_URL, conference):
     return new_team
 
 def show_players():
-    WNBA_league = WNBA.League()
+    WNBA_league = WNBA.League("WNBA")
     # Contains Team Names and URLs
     WNBAdriver = sel.BasketballDriver()
     teams = WNBAdriver.get_teams()
@@ -36,7 +36,7 @@ def show_players():
 
 
 def update_the_league():
-    WNBA_league = WNBA.League()
+    WNBA_league = WNBA.League("WNBA")
     # Contains Team Names and URLs
     WNBAdriver = sel.BasketballDriver()
     teams = WNBAdriver.get_teams()
@@ -64,11 +64,22 @@ def update_the_league():
         print(team.get_name())
         team.print_roster()
         print("*------------------*")
+
+    print_league_to_file(WNBA_league)
     
     return WNBA_league
 
 
-
+def print_league_to_file(league):
+    with open(f'{league.name}_league', 'w') as sys.stdout:
+        print(f"****Current {league.name} Teams****")
+        league.print_teams()
+        print("-------------\n")
+        teams = league.get_teams()
+        for team in teams:
+            print(team.get_name())
+            team.print_roster()
+            print("*------------------*")
 
 if __name__ == "__main__":
     WNBA_League = update_the_league()

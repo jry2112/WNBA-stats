@@ -1,13 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from dotenv import dotenv_values
 
-
+config = dotenv_values(".env")
+CHROMEDRIVER_PATH = config["CHROMEDRIVER_PATH"]
+WNBA_TEAMS_URL = config["WNBA_TEAM_URL"]
 class BasketballDriver:
     def __init__(self):
-        self.service = Service(executable_path="/usr/bin/chromedriver")
+        self.service = Service(executable_path=CHROMEDRIVER_PATH)
         self.driver = webdriver.Chrome(service=self.service)
-        self.all_teams_url = 'https://stats.wnba.com/teams/'
+        self.all_teams_url = WNBA_TEAMS_URL
         self.teams_urls = self.find_teams_urls()
 
     # Driver for scraping

@@ -2,7 +2,8 @@ import json
 
 class League:
     # Leaugue consists of 11 teams split between Eastern and Western Conference
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.teams = []
         self.eastern_conf = ["Atlanta Dream", "Chicago Sky", "Connecticut Sun", "Indiana Fever", "New York Liberty", "Washington Mystics"]
         self.western_conf = ["Dallas Wings", "Las Vegas Aces", "Los Angeles Sparks", "Minnesota Lynx", "Phoenix Mercury", "Seattle Storm"]
